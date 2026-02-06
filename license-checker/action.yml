@@ -9,7 +9,6 @@ inputs:
   exclude:
     description: 'Glob patterns to exclude from checks (comma separated)'
     required: false
-    default: 'dist/**,node_modules/**'
 runs:
   using: 'node20'
   main: 'dist/index.js'

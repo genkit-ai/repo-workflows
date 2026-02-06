@@ -26,7 +26,7 @@ import { minimatch } from 'minimatch';
 async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token') || process.env.GITHUB_TOKEN;
-    const excludePatterns = (core.getInput('exclude') || 'dist/**,node_modules/**')
+    const excludePatterns = (core.getInput('exclude') || '')
       .split(',')
       .map(s => s.trim())
       .filter(s => s.length > 0);

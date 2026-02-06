@@ -29985,7 +29985,7 @@ const minimatch_1 = __nccwpck_require__(6507);
 async function run() {
     try {
         const token = core.getInput('github-token') || process.env.GITHUB_TOKEN;
-        const excludePatterns = (core.getInput('exclude') || 'dist/**,node_modules/**')
+        const excludePatterns = (core.getInput('exclude') || '')
             .split(',')
             .map(s => s.trim())
             .filter(s => s.length > 0);
