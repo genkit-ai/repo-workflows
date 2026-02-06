@@ -14,3 +14,4 @@ jobs:
         uses: ./license-checker
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          exclude: '**/dist/**,**/node_modules/**'

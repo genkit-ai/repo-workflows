@@ -21,9 +21,16 @@ import { hasValidLicenseHeader } from './license';
 
 // test
 
+import { minimatch } from 'minimatch';
+
 async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token') || process.env.GITHUB_TOKEN;
+    const excludePatterns = (core.getInput('exclude') || 'dist/**,node_modules/**')
+      .split(',')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
     if (!token) {
       // If no token is provided, we can't fetch PR files reliably if we need the API.
       // However, if we are just checking local files checked out by actions/checkout, we might not need the API
@@ -51,6 +58,9 @@ async function run(): Promise<void> {
     const repo = context.repo.repo;
 
     core.info(`Checking license headers for PR #${pull_number} in ${owner}/${repo}...`);
+    if (excludePatterns.length > 0) {
+      core.info(`Excluding files matching: ${excludePatterns.join(', ')}`);
+    }
 
     // Fetch all changed files (handling pagination if necessary, though for simplicity we start with top 100 which is default max)
     // For a robust implementation, we should paginate.
@@ -75,6 +85,14 @@ async function run(): Promise<void> {
       }
 
       const filename = file.filename;
+
+      // Check exclusions
+      const isExcluded = excludePatterns.some(pattern => minimatch(filename, pattern));
+      if (isExcluded) {
+        core.debug(`Skipping excluded file: ${filename}`);
+        continue;
+      }
+
       const validExtension = extensionsToCheck.some(ext => filename.endsWith(ext));
       
       if (!validExtension) {
@@ -83,7 +101,7 @@ async function run(): Promise<void> {
       }
 
       if (!fs.existsSync(filename)) {
-        core.warning(`File ${filename} was listed as changed but does not exist on disk. Skipping.`);
+        core.warning(`File ${filename} was listed as changed but does not exist on disk. Skipping...`);
         continue;
       }
 
