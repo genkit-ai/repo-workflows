@@ -4,7 +4,7 @@ A GitHub Action to enforce Apache 2.0 license headers in Pull Requests for Genki
 
 ## Overview
 
-This action verifies that all modified files in a PR (with extensions `.dart`, `.js`, `.ts`, `.go`, `.java`) contain:
+This action verifies that all modified files in a PR (with extensions `.dart`, `.js`, `.ts`, `.go`, `.java`, `.py`) contain:
 1.  **Full Apache 2.0 License Text**: The standard boilerplate text must be present.
 2.  **Google Copyright**: Matches `Copyright 20\d\d Google LLC`.
 

@@ -30022,7 +30022,7 @@ async function run() {
             pull_number,
             per_page: 100,
         });
-        const extensionsToCheck = ['.dart', '.js', '.ts', '.go', '.java'];
+        const extensionsToCheck = ['.dart', '.js', '.ts', '.go', '.java', '.py'];
         let hasError = false;
         // We only check files that exist on disk (checked out). 
         // If the file was deleted, it won't exist.
