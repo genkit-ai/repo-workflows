@@ -37,6 +37,7 @@ jobs:
 | Input | Description | Required | Default |
 | :--- | :--- | :--- | :--- |
 | `github-token` | GitHub Token to fetch PR details. | No | `${{ github.token }}` |
+| `exclude` | Glob patterns to exclude files (comma separated). | No | `dist/**,node_modules/**` |
 
 ## Development
 
