@@ -30023,7 +30023,7 @@ async function run() {
             per_page: 100,
         });
         const extensionsToCheck = ['.dart', '.js', '.ts', '.go', '.java', '.py'];
-        let hasError = false;
+        const failingFiles = [];
         // We only check files that exist on disk (checked out). 
         // If the file was deleted, it won't exist.
         // If the file is renamed, it will exist at the new path.
@@ -30052,14 +30052,20 @@ async function run() {
             const content = fs.readFileSync(filename, 'utf-8');
             if (!(0, license_1.hasValidLicenseHeader)(content)) {
                 core.error(`Missing or invalid license header in: ${filename}`);
-                hasError = true;
+                failingFiles.push(filename);
             }
             else {
                 // core.debug(`Valid license header: ${filename}`);
             }
         }
-        if (hasError) {
-            core.setFailed('Some files are missing valid license headers. Please check the logs.');
+        if (failingFiles.length > 0) {
+            core.info('\n========================================');
+            core.info('      LICENSE HEADER CHECK FAILED       ');
+            core.info('========================================');
+            core.info('The following files are missing a valid Apache 2.0 license header:');
+            failingFiles.forEach(file => core.info(` - ${file}`));
+            core.info('========================================\n');
+            core.setFailed(`License check failed for ${failingFiles.length} files.`);
         }
         else {
             core.info('All checked files have valid license headers.');
