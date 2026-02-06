@@ -3,6 +3,8 @@ import * as github from '@actions/github';
 import * as fs from 'fs';
 import { hasValidLicenseHeader } from './license';
 
+// test
+
 async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token') || process.env.GITHUB_TOKEN;
