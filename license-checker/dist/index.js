@@ -30048,6 +30048,7 @@ async function run() {
                 core.warning(`File ${filename} was listed as changed but does not exist on disk. Skipping...`);
                 continue;
             }
+            core.info(`Checking ${filename}...`);
             const content = fs.readFileSync(filename, 'utf-8');
             if (!(0, license_1.hasValidLicenseHeader)(content)) {
                 core.error(`Missing or invalid license header in: ${filename}`);

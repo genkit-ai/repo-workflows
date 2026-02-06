@@ -105,6 +105,8 @@ async function run(): Promise<void> {
         continue;
       }
 
+      core.info(`Checking ${filename}...`);
+
       const content = fs.readFileSync(filename, 'utf-8');
       if (!hasValidLicenseHeader(content)) {
         core.error(`Missing or invalid license header in: ${filename}`);
