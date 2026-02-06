@@ -83,7 +83,7 @@ async function run(): Promise<void> {
       }
 
       if (!fs.existsSync(filename)) {
-        core.warning(`File ${filename} was listed as changed but does not exist on disk. Skipping.`);
+        core.warning(`File ${filename} was listed as changed but does not exist on disk. Skipping...`);
         continue;
       }
 
