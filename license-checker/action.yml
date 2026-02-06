@@ -1,0 +1,11 @@
+name: 'Genkit License Checker'
+description: 'Checks that all changed files in a PR have a valid Apache 2.0 license header with Google LLC copyright.'
+author: 'Google'
+inputs:
+  github-token:
+    description: 'GitHub Token to fetch PR details'
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
